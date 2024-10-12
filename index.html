@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+      #table-container {
+      overflow-x: auto; /* Allow horizontal scrolling */
+    }
+    #periodic-table
+    {
+      display: grid;
+      grid-template-columns: repeat(18, 1fr);
+      grid-template-rows: repeat(7, 1fr)
+        [separator-start] 0.25fr
+        [separator-end lanthanides-start] 1fr
+        [lanthanides-end actinides-start] 1fr
+        [actinides-end];
+      grid-gap: 0.125em;
+      list-style: none;
+      padding: 0;
+      font: 1em/1 Calibri, sans-serif;
+      counter-reset: atomic-number;
+      width: 100%;
+    }
+    
+    #periodic-table li
+    {
+      background: darkred;
+      color: white;
+      padding: 0.5em 0.125em;
+      text-align: center;
+      counter-increment: atomic-number;
+    }
+    
+    #periodic-table li:nth-of-type(2)
+    {
+      grid-column: 18;
+    }
+    
+    #periodic-table li:nth-of-type(5),
+    #periodic-table li:nth-of-type(13)
+    {
+      grid-column: 13;
+    }
+    
+    #periodic-table li:nth-of-type(n+58):nth-of-type(-n+71)
+    {
+      grid-row: lanthanides;
+    }
+    
+    #periodic-table li:nth-of-type(n+90):nth-of-type(-n+103)
+    {
+      grid-row: actinides;
+    }
+    
+    #periodic-table::before
+    {
+      content: '';
+      grid-row: lanthanides / actinides;
+      grid-column: 1 / span 3;
+    }
+    
+    @media (min-width: 60em)
+    {
+      #periodic-table li::before
+      {
+        content: counter(atomic-number, decimal);
+        font-feature-settings: 'subs';
+      }
+    }
+    
+    @media (min-width: 72em)
+    {
+      #periodic-table li
+      {
+        font-size: 1.2em;
+      }
+      
+      #periodic-table li::after
+      {
+        content: attr(title);
+        display: block;
+        margin-top: 0.5em;
+        font-size: 0.5em;
+      }
+    }
+    
+    @media (min-width: 90em)
+    {
+      #periodic-table li
+      {
+        font-size: 1.5em;
+      }
+    }
+    #periodic-table li.hyd {
+      background: rgb(255,127,80);
+    }
+    #periodic-table li.lit {
+      background: rgb(255,0,255);
+    }
+    #periodic-table li.ber {
+      background: rgb(127,0,255);
+    }
+    #periodic-table li.sca {
+      background: rgb(241,196,15);
+    }
+    #periodic-table li.hel {
+      background: rgb(0,0,255);
+    }
+    #periodic-table li.flu {
+      background: rgb(193,154,107) ;
+    }
+    #periodic-table li.car {
+      background: rgb(247,96,121) ;
+    }
+    #periodic-table li.bor {
+      background: rgb(106,27,27) ;
+    }
+    #periodic-table li.alu {
+      background: rgb(2,122,2) ;
+    }
+    #periodic-table li.lan {
+      background: rgb(255,192,203) ;
+    }
+    #periodic-table li.cer {
+      background: rgb(249, 155, 171) ;
+    }
+    #periodic-table li.oga {
+      background: rgb(242, 242, 249) ;
+      color: black;
+    }
+    h1{
+      position: sticky;
+      z-index: 1000;
+      padding: 10px;
+      font-size: 40px;
+    text-align: center;
+    color: rgb(3, 193, 3);
+    text-shadow: 4px 4px 16px rgb(105, 248, 105) ;
+    font-family: cursive;
+    }
+    h4 {
+    text-align: center;
+    color: rgb(165, 164, 164);
+}
+    a {
+      color: rgb(246, 132, 151);
+    }
+    a:hover {
+      color: rgb(8, 238, 8);
+    }
+    .link-container {
+    text-align: center; /* Ensure text inside the container is centered */
+}
+
+a {
+    color: rgb(245, 96, 121);
+    font-size: 20px; /* You can adjust the size as per your need */
+}
+
+a:hover {
+    color: blue;
+}
+
+/* Existing CSS */
+
+@media (max-width: 768px) { /* For tablets and mobile devices */
+  #periodic-table {
+    display: block; /* Stack elements vertically */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    white-space: nowrap; /* Prevent table from wrapping */
+    font-size: 0.8em; /* Adjust font size for better readability */
+  }
+  
+  #periodic-table li {
+    display: inline-block;
+    width: 2.5em; /* Adjust size */
+    padding: 0.5em;
+    margin: 0.1em;
+    text-align: center;
+  }
+  
+  /* Make the elements smaller for small mobile screens */
+  @media (max-width: 480px) {
+    #periodic-table li {
+      width: 3.0em;
+      padding: 0.25em;
+      font-size: 2.0em;
+      
+    }
+    
+    h1 {
+      font-size: 1.5em; /* Adjust heading size */
+    }
+  }
+  
+  /* Optional: Reduce padding in table cells for even smaller devices */
+  @media (max-width: 320px) {
+    #periodic-table li {
+      width: 3.0em;
+      height: 3.0em;
+      padding: 0.2em;
+      font-size: 0.6em;
+      font-weight: bolder;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  /* Adjust grid for mobile screens */
+  #periodic-table {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr); /* Keep 9 boxes in one row */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    white-space: nowrap; /* Prevent wrapping */
+  }
+
+  #periodic-table > div {
+    flex-shrink: 0; /* Ensure boxes don't shrink */
+    width: 150px; /* Increase the width of each box */
+    height: 150px; /* Increase the height of each box */
+    font-size: 1.2em; /* Optionally, increase font size */
+    
+  }
+}
+
+
+
+
+
+    
+      </style>
+</head>
+<body>
+  <h1><u>PERIODIC TABLE</u></h1>
+  <div role="region" tabindex="0">
+    <ol id="periodic-table">
+      <li class="hyd" title="Hydrogen">H</li>
+      <li class="hel" title="Helium">He</li>
+      <li class="lit" title="Lithium">Li</li>
+      <li class="ber" title="Beryllium">Be</li>
+      <li class="bor" title="Boron">B</li>
+      <li class="car" title="Carbon">C</li>
+      <li class="car" title="Nitrogen">N</li>
+      <li class="car" title="Oxygen">O</li>
+      <li class="flu" title="Fluorine">F</li>
+      <li class="hel" title="Neon">Ne</li>
+      <li class="lit" title="Sodium">Na</li>
+      <li class="ber" title="Magnesium">Mg</li>
+      <li class="alu" title="Aluminium">Al</li>
+      <li class="bor" title="Silicon">Si</li>
+      <li class="car" title="Phosphorus">P</li>
+      <li class="car" title="Sulfur">S</li>
+      <li class="flu" title="Chlorine">Cl</li>
+      <li class="hel" title="Argon">Ar</li>
+      <li class="lit" title="Potassium">K</li>
+      <li class="ber" title="Calcium">Ca</li>
+      <li class="sca" title="Scandium">Sc</li>
+      <li  class="sca"title="Titanium">Ti</li>
+      <li class="sca" title="Vanadium">V</li>
+      <li class="sca" title="Chromium">Cr</li>
+      <li class="sca" title="Manganese">Mn</li>
+      <li class="sca" title="Iron">Fe</li>
+      <li class="sca" title="Cobalt">Co</li>
+      <li class="sca" title="Nickel">Ni</li>
+      <li class="sca" title="Copper">Cu</li>
+      <li class="sca" title="Zinc">Zn</li>
+      <li class="alu" title="Gallium">Ga</li>
+      <li class="bor" title="Germanium">Ge</li>
+      <li class="bor" title="Arsenic">As</li>
+      <li class="car" title="Selenium">Se</li>
+      <li class="flu" title="Bromine">Br</li>
+      <li class="hel" title="Krypton">Kr</li>
+      <li class="lit" title="Rubidium">Rb</li>
+      <li class="ber" title="Strontium">Sr</li>
+      <li class="sca" title="Yttrium">Y</li>
+      <li class="sca" title="Zirconium">Zr</li>
+      <li class="sca" title="Niobium">Nb</li>
+      <li class="sca" title="Molybdenum">Mo</li>
+      <li class="sca" title="Technetium">Tc</li>
+      <li class="sca" title="Ruthenium">Ru</li>
+      <li class="sca" title="Rhodium">Rh</li>
+      <li class="sca" title="Palladium">Pd</li>
+      <li class="sca" title="Silver">Ag</li>
+      <li class="sca" title="Cadmium">Cd</li>
+      <li class="alu" title="Indium">In</li>
+      <li class="alu" title="Tin">Sn</li>
+      <li class="bor" title="Antimony">Sb</li>
+      <li class="bor" title="Tellurium">Te</li>
+      <li class="flu" title="Iodine">I</li>
+      <li class="hel" title="Xenon">Xe</li>
+      <li class="lit" title="Caesium">Cs</li>
+      <li class="ber" title="Barium">Ba</li>
+      <li class="lan" title="Lanthanum">La</li>
+      <li class="cer" title="Cerium">Ce</li>
+      <li class="cer" title="Praseodymium">Pr</li>
+      <li class="cer" title="Neodymium">Nd</li>
+      <li class="cer" title="Promethium">Pm</li>
+      <li class="cer" title="Samarium">Sm</li>
+      <li class="cer" title="Europium">Eu</li>
+      <li class="cer" title="Gadolinium">Gd</li>
+      <li class="cer" title="Terbium">Tb</li>
+      <li class="cer" title="Dysprosium">Dy</li>
+      <li class="cer" title="Holmium">Ho</li>
+      <li class="cer" title="Erbium">Er</li>
+      <li class="cer" title="Thulium">Tm</li>
+      <li class="cer" title="Ytterbium">Yb</li>
+      <li class="cer" title="Lutetium">Lu</li>
+      <li class="sca" title="Hafnium">Hf</li>
+      <li class="sca" title="Tantalum">Ta</li>
+      <li class="sca" title="Tungsten">W</li>
+      <li class="sca" title="Rhenium">Re</li>
+      <li class="sca" title="Osmium">Os</li>
+      <li class="sca" title="Iridium">Ir</li>
+      <li class="sca" title="Platinum">Pt</li>
+      <li class="sca" title="Gold">Au</li>
+      <li class="sca" title="Mercury">Hg</li>
+      <li class="alu" title="Thallium">Tl</li>
+      <li class="alu" title="Lead">Pb</li>
+      <li class="alu" title="Bismuth">Bi</li>
+      <li class="bor" title="Polonium">Po</li>
+      <li class="flu" title="Astatine">At</li>
+      <li class="hel" title="Radon">Rn</li>
+      <li class="lit" title="Francium">Fr</li>
+      <li class="ber" title="Radium">Ra</li>
+      <li class="lan" title="Actinium">Ac</li>
+      <li class="cer" title="Thorium">Th</li>
+      <li class="cer" title="Protactinium">Pa</li>
+      <li class="cer" title="Uranium">U</li>
+      <li class="cer" title="Neptunium">Np</li>
+      <li class="cer" title="Plutonium">Pu</li>
+      <li class="cer" title="Americium">Am</li>
+      <li class="cer" title="Curium">Cm</li>
+      <li class="cer" title="Berkelium">Bk</li>
+      <li class="cer" title="Californium">Cf</li>
+      <li class="cer" title="Einsteinium">Es</li>
+      <li class="cer" title="Fermium">Fm</li>
+      <li class="cer" title="Mendelevium">Md</li>
+      <li class="cer" title="Nobelium">No</li>
+      <li class="cer" title="Lawrencium">Lr</li>
+      <li class="sca" title="Rutherfordium">Rf</li>
+      <li class="sca" title="Dubnium">Db</li>
+      <li class="sca" title="Seaborgium">Sg</li>
+      <li class="sca" title="Bohrium">Bh</li>
+      <li class="sca" title="Hassium">Hs</li>
+      <li class="sca" title="Meitnerium">Mt</li>
+      <li class="sca" title="Darmstadtium">Ds</li>
+      <li class="sca" title="Roentgenium">Rg</li>
+      <li class="sca" title="Copernicium">Cn</li>
+      <li class="oga" title="Nihonium">Nh</li>
+      <li class="oga" title="Flerovium">Fl</li>
+      <li class="oga" title="Moscovium">Mc</li>
+      <li class="oga" title="Livermorium">Lv</li>
+      <li class="oga" title="Tennessine">Ts</li>
+      <li class="oga" title="Oganesson">Og</li>
+    </ol>
+  </div>
+  <br>
+  <br>
+  <br>
+  <div class="link-container">
+    <a href="https://github.com/Ameen-Alam/PIAIC-HTML-CSS-Assignments/?tab=readme-ov-file">GitHub/GIAIC-HTML-CSS-Assignments</a>
+  </div>
+
+  <h4>Author:Azmat Ali</h4>
+</body>
+</html>
